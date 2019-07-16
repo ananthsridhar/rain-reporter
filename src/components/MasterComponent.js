@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import FormComponent from './FormComponent';
-
+import MapCardComponent from './MapCardComponent';
 
 
 export default class MasterComponent extends React.Component {
@@ -19,6 +19,7 @@ export default class MasterComponent extends React.Component {
 
             <Container maxWidth="lg">
                 <FormComponent sendData={this.submitData}/>
+                <MapCardComponent />
             </Container>
         );
     }

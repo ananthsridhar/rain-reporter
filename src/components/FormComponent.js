@@ -72,7 +72,7 @@ export default class FormComponent extends React.Component {
                 <CardContent>
 
                     <Typography variant="h5" component="h2">
-                        HELLOW
+                        RAIN LOG
                             </Typography>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
@@ -81,8 +81,8 @@ export default class FormComponent extends React.Component {
                         </Grid>
                         <Grid item xs={12}>
                             <Typography>[Location]</Typography>
-                            <Typography>{this.state.location != null ? this.state.location.latitude : 0}</Typography>
-                            <Typography>{this.state.location != null ? this.state.location.longitude : 0}</Typography>
+                            <Typography>{this.state.location != null ? this.state.location.latitude : 'Loading'}</Typography>
+                            <Typography>{this.state.location != null ? this.state.location.longitude : 'Loading'}</Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Typography>[Rain Intensity]</Typography>
@@ -93,6 +93,7 @@ export default class FormComponent extends React.Component {
                                     name: 'rainIntensity',
                                     id: 'rain-intensity',
                                 }}
+                                style={{width : '80%'}}
                             >
                                 {Constants.rainIntensityList.map((d, i) => {
                                     return (<MenuItem value={d.value} key={i}>{d.label}</MenuItem>)
@@ -108,6 +109,7 @@ export default class FormComponent extends React.Component {
                                     name: 'floodIntensity',
                                     id: 'flood-intensity',
                                 }}
+                                style={{width : '80%'}}
                             >
                                 {Constants.floodIntensityList.map((d, i) => {
                                     return (<MenuItem value={d.value} key={i}>{d.label}</MenuItem>)
