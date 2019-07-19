@@ -13,8 +13,6 @@ export default class FormComponent extends React.Component {
             rainIntensity: 10,
             floodIntensity: 0
         }
-        this.success = this.success.bind(this);
-        this.error = this.error.bind(this);
         this.submitData = this.submitData.bind(this);
     }
 
@@ -24,26 +22,8 @@ export default class FormComponent extends React.Component {
                 curTime: new Date().toLocaleString()
             })
         }, 1000);
-        if ("geolocation" in navigator) {
-            /* geolocation is available */
-            console.log("Location Available");
-            navigator.geolocation.getCurrentPosition(this.success, this.error);
-        } else {
-            /* geolocation IS NOT available */
-            console.log("Location NOT Available");
-        }
+       
     }
-
-    success(position) {
-        this.setState({
-            location: position.coords
-        })
-    }
-
-    error() {
-        alert('Unable to retrieve your location');
-    }
-
     componentWillUnmount() {
         clearInterval(this.intervalT);
     }
@@ -59,7 +39,8 @@ export default class FormComponent extends React.Component {
 
     submitData() {
         let data = {
-            location: this.state.location,
+            timestamp : this.state.curTime,
+            location: this.props.location,
             rainIntensity: this.state.rainIntensity,
             floodIntensity: this.state.floodIntensity
         }
@@ -81,8 +62,8 @@ export default class FormComponent extends React.Component {
                         </Grid>
                         <Grid item xs={12}>
                             <Typography>[Location]</Typography>
-                            <Typography>{this.state.location != null ? this.state.location.latitude : 'Loading'}</Typography>
-                            <Typography>{this.state.location != null ? this.state.location.longitude : 'Loading'}</Typography>
+                            <Typography>{this.props.location != null ? this.props.location.latitude : 'Loading'}</Typography>
+                            <Typography>{this.props.location != null ? this.props.location.longitude : 'Loading'}</Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Typography>[Rain Intensity]</Typography>
