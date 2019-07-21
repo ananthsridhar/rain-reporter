@@ -2,9 +2,9 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import FormComponent from './FormComponent';
 import MapCardComponent from './MapCardComponent';
-import LogObject from '../data/LogObject';
 
 import Firebase from '../resources/firebase';
+import LogObject from '../data/LogObject';
 
 
 export default class MasterComponent extends React.Component {
@@ -42,16 +42,17 @@ export default class MasterComponent extends React.Component {
 
     submitData(data) {
         console.log({ data });
-        let lo = new LogObject(data);
-        // console.log({lo});
         let dbRef = Firebase.database();
-        console.log(lo.getTimestampObj());
         let d = new Date();
+        let dData = new LogObject(data);
+        dData = dData.getDetailObj();
+        console.log(dData);
         let tData = {
             lt : data.location.latitude,
             lo : data.location.longitude
         }
         dbRef.ref('/log/' + d.getTime()).set(tData);
+        dbRef.ref('/detail/' + d.getTime()).set(dData);
     }
 
     render() {
