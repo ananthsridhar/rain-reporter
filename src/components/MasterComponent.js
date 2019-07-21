@@ -19,7 +19,7 @@ export default class MasterComponent extends React.Component {
     }
 
     componentDidMount() {
-
+        this.getUserData();
         if ("geolocation" in navigator) {
             /* geolocation is available */
             console.log("Location Available");
@@ -39,6 +39,23 @@ export default class MasterComponent extends React.Component {
     error() {
         alert('Unable to retrieve your location');
     }
+
+    getUserData = () => {
+        let ref = Firebase.database().ref('/log');
+        ref.on('value', snapshot => {
+          const state = snapshot.val();
+          console.log(state);
+          let newMarks = [];
+          for(var mark in state){
+              newMarks.push({
+                  time : mark,
+                  coord : [state[mark].lo,state[mark].lt]
+              })
+          }
+          this.setState({marks : newMarks});
+        });
+        console.log('DATA RETRIEVED');
+      }
 
     submitData(data) {
         console.log({ data });
@@ -60,7 +77,7 @@ export default class MasterComponent extends React.Component {
 
             <Container maxWidth="lg">
                 <FormComponent sendData={this.submitData} location={this.state.location} />
-                <MapCardComponent location={this.state.location} />
+                <MapCardComponent location={this.state.location} markers={this.state.marks}/>
             </Container>
         );
     }
