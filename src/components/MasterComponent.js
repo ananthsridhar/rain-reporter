@@ -6,6 +6,8 @@ import MapCardComponent from './MapCardComponent';
 import Firebase from '../resources/firebase';
 import LogObject from '../data/LogObject';
 
+import Utilities from '../resources/Utilities';
+
 
 export default class MasterComponent extends React.Component {
     constructor() {
@@ -14,30 +16,19 @@ export default class MasterComponent extends React.Component {
             location: {}
         }
         this.success = this.success.bind(this);
-        this.error = this.error.bind(this);
         this.submitData = this.submitData.bind(this);
     }
 
     componentDidMount() {
         this.getUserData();
-        if ("geolocation" in navigator) {
-            /* geolocation is available */
-            console.log("Location Available");
-            navigator.geolocation.getCurrentPosition(this.success, this.error);
-        } else {
-            /* geolocation IS NOT available */
-            console.log("Location NOT Available");
-        }
+        Utilities.getLocation(this.success);
     }
 
     success(position) {
+        console.log("Position Updated");
         this.setState({
             location: position.coords
         })
-    }
-
-    error() {
-        alert('Unable to retrieve your location');
     }
 
     getUserData = () => {
