@@ -54,16 +54,16 @@ export default class MapCardComponent extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            markers: (this.props.markers?this.filterMarkers(this.state.mapFilter):[])
+            markers: (this.props.markers?this.filterMarkers(nextProps.markers,this.state.mapFilter):[])
         })
     }
 
-    filterMarkers(val){
+    filterMarkers(newMarkers,val){
         let low = Utilities.getTimeLowerBound((val?val:Constants.ALL));
         let newMarks = this.state.markers;
-        if (this.props.markers) {
+        if (newMarkers.markers) {
                 
-            newMarks = this.props.markers.filter((mark) => {
+            newMarks = newMarkers.markers.filter((mark) => {
                 let tD = new Date(parseInt(mark.time));
                 return (tD > low ? true : false);
             })
