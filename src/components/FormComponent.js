@@ -31,7 +31,6 @@ export default class FormComponent extends React.Component {
     handleChange(e) {
         e.preventDefault();
         let key = e.target.name;
-        // console.log({e});
         this.setState({
             [key]: e.target.value
         })
@@ -52,19 +51,19 @@ export default class FormComponent extends React.Component {
             <Card style={{ minWidth: 275, marginTop: 20 }}>
                 <CardContent>
 
-                    <Typography variant="h5" component="h2">
+                    {/* <Typography variant="h5" component="h2">
                         RAIN LOG
-                            </Typography>
+                            </Typography> */}
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Typography>[Time]</Typography>
                             <Typography>{this.state.curTime}</Typography>
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <Typography>[Location]</Typography>
                             <Typography>{this.props.location != null ? this.props.location.latitude : 'Loading'}</Typography>
                             <Typography>{this.props.location != null ? this.props.location.longitude : 'Loading'}</Typography>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12} sm={6}>
                             <Typography>[Rain Intensity]</Typography>
                             <Select

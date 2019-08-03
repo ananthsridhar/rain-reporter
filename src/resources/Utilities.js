@@ -31,13 +31,13 @@ const Utilities = {
         let retVal;
         switch (limit) {
             case Constants.DAY: retVal = new Date(now.getFullYear(), now.getMonth(), now.getDate(),now.getHours()-24);
-                console.log(retVal);
+                //console.log(retVal);
                 break;
             case Constants.WEEK: retVal = new Date(now.getFullYear(), now.getMonth(), now.getDate()-7);
-                console.log(retVal);
+                //console.log(retVal);
                 break;
             case Constants.MONTH: retVal = new Date(now.getFullYear(), now.getMonth()-1, now.getDate());
-                console.log(retVal);
+                //console.log(retVal);
                 break;
             default: retVal = new Date(now.getFullYear()-1, now.getMonth(), now.getDate());
         }

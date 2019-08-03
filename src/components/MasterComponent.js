@@ -17,25 +17,43 @@ export default class MasterComponent extends React.Component {
         }
         this.success = this.success.bind(this);
         this.submitData = this.submitData.bind(this);
+        this.initializeData = this.initializeData.bind(this);
     }
 
     componentDidMount() {
+        // this.initializeData();
         this.getUserData();
         Utilities.getLocation(this.success);
     }
 
     success(position) {
-        console.log("Position Updated");
+        //console.log("Position Updated");
         this.setState({
             location: position.coords
         })
+    }
+
+    initializeData = () => {
+        let ref = Firebase.database().ref('/log');
+        let data = ref.once('value').then(snapshot => {
+            const state = snapshot.val();
+            //console.log(state);
+            let newMarks = [];
+            for(var mark in state){
+                newMarks.push({
+                    time : mark,
+                    coord : [state[mark].lo,state[mark].lt]
+                })
+            }
+            this.setState({marks : newMarks});
+          });
     }
 
     getUserData = () => {
         let ref = Firebase.database().ref('/log');
         ref.on('value', snapshot => {
           const state = snapshot.val();
-          console.log(state);
+          //console.log("Value updated" + state);
           let newMarks = [];
           for(var mark in state){
               newMarks.push({
@@ -49,12 +67,12 @@ export default class MasterComponent extends React.Component {
       }
 
     submitData(data) {
-        console.log({ data });
+        //console.log({ data });
         let dbRef = Firebase.database();
         let d = new Date();
         let dData = new LogObject(data);
         dData = dData.getDetailObj();
-        console.log(dData);
+        //console.log(dData);
         let tData = {
             lt : data.location.latitude,
             lo : data.location.longitude
@@ -65,7 +83,6 @@ export default class MasterComponent extends React.Component {
 
     render() {
         return (
-
             <Container maxWidth="lg">
                 <FormComponent sendData={this.submitData} location={this.state.location} />
                 <MapCardComponent location={this.state.location} markers={this.state.marks}/>
