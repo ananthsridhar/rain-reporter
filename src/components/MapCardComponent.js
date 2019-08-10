@@ -2,7 +2,7 @@ import React from 'react';
 import { Constants } from '../resources/Constants';
 
 import { Typography, Card, CardContent, Grid, Select, MenuItem } from '@material-ui/core';
-import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
+import ReactMapboxGl, { Marker,Popup } from 'react-mapbox-gl';
 import Utilities from '../resources/Utilities';
 
 const Map = ReactMapboxGl({
@@ -145,10 +145,8 @@ export default class MapCardComponent extends React.Component {
                             >
                                 {this.state.markers &&
                                     this.state.markers.map((mark) => {
-                                        return (
-                                            <Marker coordinates={mark.coord} key={mark.time}>
-                                                <Mark />
-                                            </Marker>);
+                                        return (<MapMarker mark={mark} key={mark.time} />
+                                        );
                                     })
                                 }
                                 <Marker coordinates={centerC}>
@@ -161,4 +159,57 @@ export default class MapCardComponent extends React.Component {
             </Card>
         );
     }
+}
+
+class MapMarker extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showDetail: false
+        }
+
+        this.toggleDetail = this.toggleDetail.bind(this);
+    }
+
+    toggleDetail() {
+        this.setState((prevState)=>{
+            return ({showDetail : !prevState.showDetail})
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                
+                    <Marker coordinates={this.props.mark.coord} onClick={this.toggleDetail}>
+                        <Mark />                       
+                    </Marker>
+                {this.state.showDetail &&
+                    <Popup
+                        coordinates={this.props.mark.coord}
+                        offset={{
+                            'bottom-left': [12, -38], 'bottom': [0, -38], 'bottom-right': [-12, -38]
+                        }}
+                        style={{zIndex : 999}}
+                        onClick={this.toggleDetail}>
+                        <div style={markerStyle}>
+                                <h3>Time : 12:20PM</h3>
+                                <p>Rain Level : Bad</p>
+                                <p>Waterlogging Level : Bad</p>
+                            </div>
+                    </Popup>}
+            </div>
+        )
+    }
+
+
+}
+
+const markerStyle = {
+    color : 'black',
+    backgroundColor: "white",
+    padding: 1,
+    paddingLeft: 5,
+    paddingRight: 5,
+    borderRadius: 5
 }
