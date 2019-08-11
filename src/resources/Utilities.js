@@ -42,6 +42,20 @@ const Utilities = {
             default: retVal = new Date(now.getFullYear()-1, now.getMonth(), now.getDate());
         }
         return retVal;
+    },
+
+    getFormattedTime(timeInMillis){
+        let d = new Date(parseInt(timeInMillis));
+        return d.toLocaleString();
+    },
+
+    getIntensity(quantity,val){
+        let qArr = (quantity==='rain'?Constants.rainIntensityList:Constants.floodIntensityList);
+        // for(let data in qArr){
+        //     if(data.value===val){return data.label}
+        // }
+        let obj = qArr.find(o => o.value === val);
+        return obj.label;
     }
 }
 

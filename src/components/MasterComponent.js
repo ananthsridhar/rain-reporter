@@ -34,15 +34,18 @@ export default class MasterComponent extends React.Component {
     }
 
     initializeData = () => {
-        let ref = Firebase.database().ref('/log');
+        let ref = Firebase.database().ref('/detail');
         let data = ref.once('value').then(snapshot => {
             const state = snapshot.val();
             //console.log(state);
             let newMarks = [];
             for(var mark in state){
+                console.log(mark.ri);
                 newMarks.push({
                     time : mark,
-                    coord : [state[mark].lo,state[mark].lt]
+                    coord : [state[mark].loc.lo,state[mark].loc.lt],
+                    floodIntensity : state[mark].fi,
+                    rainIntensity : state[mark].ri
                 })
             }
             this.setState({marks : newMarks});
@@ -50,7 +53,7 @@ export default class MasterComponent extends React.Component {
     }
 
     getUserData = () => {
-        let ref = Firebase.database().ref('/log');
+        let ref = Firebase.database().ref('/detail');
         ref.on('value', snapshot => {
           const state = snapshot.val();
           //console.log("Value updated" + state);
@@ -58,7 +61,9 @@ export default class MasterComponent extends React.Component {
           for(var mark in state){
               newMarks.push({
                   time : mark,
-                  coord : [state[mark].lo,state[mark].lt]
+                  coord : [state[mark].loc.lo,state[mark].loc.lt],
+                  floodIntensity : state[mark].fi,
+                  rainIntensity : state[mark].ri
               })
           }
           this.setState({marks : newMarks});

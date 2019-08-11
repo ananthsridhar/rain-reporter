@@ -193,9 +193,9 @@ class MapMarker extends React.Component {
                         style={{zIndex : 999}}
                         onClick={this.toggleDetail}>
                         <div style={markerStyle}>
-                                <h3>Time : 12:20PM</h3>
-                                <p>Rain Level : Bad</p>
-                                <p>Waterlogging Level : Bad</p>
+                                <h3>Time : {Utilities.getFormattedTime(this.props.mark.time)}</h3>
+                                <p>Rain Level : {Utilities.getIntensity('rain',this.props.mark.rainIntensity)}</p>
+                                <p>Waterlogging Level : {Utilities.getIntensity('flood',this.props.mark.floodIntensity)}</p>
                             </div>
                     </Popup>}
             </div>
