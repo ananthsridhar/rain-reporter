@@ -55,8 +55,8 @@ export default class FormComponent extends React.Component {
                         RAIN LOG
                             </Typography> */}
                     <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Typography>[Time]</Typography>
+                        <Grid item xs={12} style={{border : '1px solid blue'}}>
+                            {/*<Typography>[Time]</Typography>*/}
                             <Typography>{this.state.curTime}</Typography>
                         </Grid>
                         {/* <Grid item xs={12}>
@@ -65,7 +65,7 @@ export default class FormComponent extends React.Component {
                             <Typography>{this.props.location != null ? this.props.location.longitude : 'Loading'}</Typography>
                         </Grid> */}
                         <Grid item xs={12} sm={6}>
-                            <Typography>[Rain Intensity]</Typography>
+                            <Typography>Rain Intensity</Typography>
                             <Select
                                 value={this.state.rainIntensity}
                                 onChange={(e) => this.handleChange(e)}
@@ -81,7 +81,7 @@ export default class FormComponent extends React.Component {
                             </Select>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Typography>[Waterlogging Intensity]</Typography>
+                            <Typography>How Bad is the Waterlogging?</Typography>
                             <Select
                                 value={this.state.floodIntensity}
                                 onChange={(e) => this.handleChange(e)}
