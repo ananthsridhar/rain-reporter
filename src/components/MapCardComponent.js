@@ -9,9 +9,9 @@ const Map = ReactMapboxGl({
     accessToken: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 });
 
-const Mark = () => {
+const Mark = (props) => {
     return (<div style={{
-        'backgroundColor': '#e74c3c',
+        'backgroundColor': (props.floodIntensity>10?'#e74c3c':'green'),
         'borderRadius': '50%',
         'width': '15px',
         'height': '15px',
@@ -182,7 +182,7 @@ class MapMarker extends React.Component {
             <div>
                 
                     <Marker coordinates={this.props.mark.coord} onClick={this.toggleDetail}>
-                        <Mark />                       
+                        <Mark floodIntensity={this.props.mark.floodIntensity}/>                       
                     </Marker>
                 {this.state.showDetail &&
                     <Popup
