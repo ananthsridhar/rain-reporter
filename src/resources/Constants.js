@@ -27,6 +27,14 @@ mapFilterList : [
 DAY : 'D',
 WEEK : 'W',
 MONTH : 'M',
-ALL : 'A'
+ALL : 'A',
+
+floodColors : {
+    "-1" : '#fcba03',
+    "0" : '#2bbf0a',
+    "10" : '#2bbf0a',
+    "20" : '#fc7303',
+    "30" : '#fc4103'
+}
 
 };

@@ -11,7 +11,8 @@ const Map = ReactMapboxGl({
 
 const Mark = (props) => {
     return (<div style={{
-        'backgroundColor': (props.floodIntensity>10?'#e74c3c':'green'),
+        // 'backgroundColor': (props.floodIntensity>10?'#e74c3c':'green'),
+        'backgroundColor' : (Constants.floodColors[props.floodIntensity]),
         'borderRadius': '50%',
         'width': '15px',
         'height': '15px',

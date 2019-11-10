@@ -13,12 +13,6 @@ const Utilities = {
         }
     },
 
-    success(position) {
-        this.setState({
-            location: position.coords
-        })
-    },
-
     error() {
         alert('Unable to retrieve your location');
     },
@@ -26,18 +20,13 @@ const Utilities = {
     //Filter Functions
     getTimeLowerBound(limit) {
         let now = new Date();
-        // console.log(now.getDay());
-        // now = now.getMilliseconds();
         let retVal;
         switch (limit) {
             case Constants.DAY: retVal = new Date(now.getFullYear(), now.getMonth(), now.getDate(),now.getHours()-24);
-                //console.log(retVal);
                 break;
             case Constants.WEEK: retVal = new Date(now.getFullYear(), now.getMonth(), now.getDate()-7);
-                //console.log(retVal);
                 break;
             case Constants.MONTH: retVal = new Date(now.getFullYear(), now.getMonth()-1, now.getDate());
-                //console.log(retVal);
                 break;
             default: retVal = new Date(now.getFullYear()-1, now.getMonth(), now.getDate());
         }
@@ -51,9 +40,6 @@ const Utilities = {
 
     getIntensity(quantity,val){
         let qArr = (quantity==='rain'?Constants.rainIntensityList:Constants.floodIntensityList);
-        // for(let data in qArr){
-        //     if(data.value===val){return data.label}
-        // }
         let obj = qArr.find(o => o.value === val);
         return obj.label;
     }
